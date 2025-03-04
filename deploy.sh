@@ -4,3 +4,8 @@
 
  ...
  i am updating the comment in development branch
+
+ i am update the information on stash command
+
+
+ i am update the deploy code

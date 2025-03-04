@@ -7,3 +7,5 @@ iam updating the master branch
 ....
 iam updating the development branch
 
+i am learning in stag command 
+iam learn how to insert the pull request in directly into the remote repositary
