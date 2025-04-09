@@ -6,6 +6,8 @@ echo "the jenkins home is :${JENKINS_HOME}"
 echo " the jenkins url is :${JENKINS_URL}"
 echo " the job name is :${JOB_NAME}"
 def mavenHome = tool name: 'maven3.9.9'
+properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * *')])])
+
 try{
 stage('CheckOutCode'){
 sendslacknotification('STARTED')
@@ -15,7 +17,7 @@ git branch: 'development', credentialsId: 'd6becbe3-5aa7-4a66-9915-ffe714eac8e5'
 stage('Build'){
 sh "${mavenHome}/bin/mvn clean package"
 }
-/*
+
 stage('ExecuteSonarQubeReport'){
 sh "${mavenHome}/bin/mvn clean sonar:sonar"
 }
@@ -28,7 +30,7 @@ stage('uploadthefileintomcat'){
        sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.0.88:/opt/apache-tomcat-9.0.102/webapps"
 }
 }
-*/
+
 }
 catch(e){
     currentBuild.result="FAILURE"
